@@ -39,19 +39,20 @@ struct ContentView: View {
                     Text("Login")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.blue)
+                        .background(Color(red: 1.0, green: 0.6, blue: 0.75)) // Rosa Claro
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .bold()
                 }
                 .buttonStyle(PressableButtonStyle())
-                .padding(.top, 10)
+                .padding(.top, 20)
 
+                // 6. Link para Cadastro
                 NavigationLink(destination: RegisterView()) {
                     Text("Não possui cadastro? ")
                         .foregroundColor(.primary) +
                     Text("Cadastre-se aqui.")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color(red: 1.0, green: 0.5, blue: 0.7)) // Link Rosa mais escuro
                         .bold()
                 }
                 .font(.footnote)
@@ -125,7 +126,7 @@ struct RegisterView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         // Se as senhas não coincidirem, o botão fica cinza
-                        .background(senhasCoincidem ? Color.green : Color.gray)
+                        .background(senhasCoincidem ? Color(red: 1.0, green: 0.6, blue: 0.75) : Color.gray)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .bold()
