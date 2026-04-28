@@ -62,13 +62,78 @@ struct ContentView: View {
 }
 
 struct RegisterView: View {
+    // 1. Variáveis de Estado para o Cadastro
+    @State private var nome = ""
+    @State private var sobrenome = ""
+    @State private var email = ""
+    @State private var confirmarEmail = ""
+    @State private var senha = ""
+    @State private var confirmarSenha = ""
+
     var body: some View {
-        VStack {
-            Text("Tela de Cadastro")
-                .font(.title)
-            Text("Aqui o usuário poderá criar uma nova conta.")
+        // 2. ScrollView: Permite rolar a tela se houver muitos campos
+        ScrollView {
+            VStack(spacing: 15) {
+                Text("Crie sua conta")
+                    .font(.title)
+                    .bold()
+                    .padding(.bottom, 10)
+
+                // Campos de Nome e Sobrenome
+                TextField("Nome", text: $nome)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+
+                TextField("Sobrenome", text: $sobrenome)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+
+                // Campos de E-mail
+                TextField("E-mail", text: $email)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+
+                TextField("Confirme seu E-mail", text: $confirmarEmail)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(.none)
+
+                // Campos de Senha
+                SecureField("Senha", text: $senha)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+
+                SecureField("Confirme sua Senha", text: $confirmarSenha)
+                    .padding()
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+
+                // Botão Cadastrar
+                Button(action: {
+                    print("Novo cadastro: \(nome) \(sobrenome) - \(email)")
+                }) {
+                    Text("Cadastrar")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .bold()
+                }
+                .padding(.top, 20)
+            }
+            .padding(30)
         }
         .navigationTitle("Cadastro")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
