@@ -32,7 +32,7 @@ struct ContentView: View {
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
-
+// 5. Botão de Login com efeito visual
                 Button(action: {
                     print("Tentativa de login com: \(email)")
                 }) {
@@ -44,6 +44,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .bold()
                 }
+                .buttonStyle(PressableButtonStyle())
                 .padding(.top, 10)
 
                 NavigationLink(destination: RegisterView()) {
@@ -116,24 +117,48 @@ struct RegisterView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
 
-                // Botão Cadastrar
+                // Botão Cadastrar com Regra de Senha
                 Button(action: {
                     print("Novo cadastro: \(nome) \(sobrenome) - \(email)")
                 }) {
                     Text("Cadastrar")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.green)
+                        // Se as senhas não coincidirem, o botão fica cinza
+                        .background(senhasCoincidem ? Color.green : Color.gray)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .bold()
                 }
+                .disabled(!senhasCoincidem) // Desabilita o botão se as senhas forem diferentes
+                .buttonStyle(PressableButtonStyle())
                 .padding(.top, 20)
+
+                if !confirmarSenha.isEmpty && !senhasCoincidem {
+                    Text("As senhas não coincidem")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                }
             }
             .padding(30)
         }
         .navigationTitle("Cadastro")
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // Regra Computada: Verifica se os campos de senha são iguais e não estão vazios
+    private var senhasCoincidem: Bool {
+        !senha.isEmpty && senha == confirmarSenha
+    }
+}
+
+// 8. Efeito Visual de Toque (ButtonStyle)
+struct PressableButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Diminui 5% ao tocar
+            .opacity(configuration.isPressed ? 0.8 : 1.0)     // Fica um pouco transparente
+            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
 
