@@ -32,14 +32,14 @@ struct ContentView: View {
                     .padding()
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
-// 5. Botão de Login com efeito visual
+
                 Button(action: {
                     print("Tentativa de login com: \(email)")
                 }) {
                     Text("Login")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color(red: 1.0, green: 0.6, blue: 0.75)) // Rosa Claro
+                        .background(Color(red: 1.0, green: 0.6, blue: 0.75))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .bold()
@@ -47,12 +47,12 @@ struct ContentView: View {
                 .buttonStyle(PressableButtonStyle())
                 .padding(.top, 20)
 
-                // 6. Link para Cadastro
+                
                 NavigationLink(destination: RegisterView()) {
                     Text("Não possui cadastro? ")
                         .foregroundColor(.primary) +
                     Text("Cadastre-se aqui.")
-                        .foregroundColor(Color(red: 1.0, green: 0.5, blue: 0.7)) // Link Rosa mais escuro
+                        .foregroundColor(Color(red: 1.0, green: 0.5, blue: 0.7))
                         .bold()
                 }
                 .font(.footnote)
@@ -64,7 +64,7 @@ struct ContentView: View {
 }
 
 struct RegisterView: View {
-    // 1. Variáveis de Estado para o Cadastro
+   
     @State private var nome = ""
     @State private var sobrenome = ""
     @State private var email = ""
@@ -73,7 +73,7 @@ struct RegisterView: View {
     @State private var confirmarSenha = ""
 
     var body: some View {
-        // 2. ScrollView: Permite rolar a tela se houver muitos campos
+        
         ScrollView {
             VStack(spacing: 15) {
                 Text("Crie sua conta")
@@ -81,7 +81,7 @@ struct RegisterView: View {
                     .bold()
                     .padding(.bottom, 10)
 
-                // Campos de Nome e Sobrenome
+                
                 TextField("Nome", text: $nome)
                     .padding()
                     .background(Color(.systemGray6))
@@ -92,7 +92,7 @@ struct RegisterView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
 
-                // Campos de E-mail
+               
                 TextField("E-mail", text: $email)
                     .padding()
                     .background(Color(.systemGray6))
@@ -107,7 +107,7 @@ struct RegisterView: View {
                     .keyboardType(.emailAddress)
                     .autocapitalization(.none)
 
-                // Campos de Senha
+               
                 SecureField("Senha", text: $senha)
                     .padding()
                     .background(Color(.systemGray6))
@@ -118,20 +118,20 @@ struct RegisterView: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
 
-                // Botão Cadastrar com Regra de Senha
+               
                 Button(action: {
                     print("Novo cadastro: \(nome) \(sobrenome) - \(email)")
                 }) {
                     Text("Cadastrar")
                         .frame(maxWidth: .infinity)
                         .padding()
-                        // Se as senhas não coincidirem, o botão fica cinza
+                       
                         .background(senhasCoincidem ? Color(red: 1.0, green: 0.6, blue: 0.75) : Color.gray)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .bold()
                 }
-                .disabled(!senhasCoincidem) // Desabilita o botão se as senhas forem diferentes
+                .disabled(!senhasCoincidem)
                 .buttonStyle(PressableButtonStyle())
                 .padding(.top, 20)
 
@@ -146,19 +146,17 @@ struct RegisterView: View {
         .navigationTitle("Cadastro")
         .navigationBarTitleDisplayMode(.inline)
     }
-
-    // Regra Computada: Verifica se os campos de senha são iguais e não estão vazios
+    
     private var senhasCoincidem: Bool {
         !senha.isEmpty && senha == confirmarSenha
     }
 }
 
-// 8. Efeito Visual de Toque (ButtonStyle)
 struct PressableButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0) // Diminui 5% ao tocar
-            .opacity(configuration.isPressed ? 0.8 : 1.0)     // Fica um pouco transparente
+            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .opacity(configuration.isPressed ? 0.8 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
     }
 }
